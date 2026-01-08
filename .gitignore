@@ -1,0 +1,8 @@
+.env
+*.env
+secrets.yml
+config/local.yml
+*.duckdb
+
+venv/
+__pycache__/

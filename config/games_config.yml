@@ -1,0 +1,35 @@
+pipeline:
+  name: twitch_view
+  description: Collect active streaming and game played
+  frequency: hourly
+  owner: data-engineering
+  enabled: true
+
+source:
+  type: api
+  name: t
+  endpoint: get_current_players
+  timeout_seconds: 10
+  retries: 3
+
+storage:
+  raw:
+    base_path: data_lake/raw
+    dataset: twitch_top_game
+    partitioning:
+      - date
+      - hour
+  reject:
+    base_path: data_lake/reject
+
+datasets:
+  steam_players:
+    description: Active streamer per game
+    mode: append
+    schema:
+      game_id: int
+      viewer_count: int
+      streamer_id: int
+      collected_at: timestamp
+
+

@@ -1,0 +1,87 @@
+version : 2
+
+source :
+  - name : bronze
+    schema : bronze
+    tables :
+      - name : stg_twitch_streams
+        description : "Raw Twitch streams ingested into bronze layer"
+
+models:
+  - name: silver_streamers_twitch_informations
+    description : "Information des streamer actif"
+    columns :
+
+      - name : streamer_id
+        description : "Unique streamer identifier"
+        tests : 
+          - unique
+          - not_null
+
+      - name : user_login
+        description : "user login of the streamer"
+        tests : 
+          - not_null
+
+      - name : user_name
+        description : "user name of the streamer" 
+
+  - name: silver_streams_twitch
+    description : "Information of active streamers"
+    columns :
+
+      - name : stream_id
+        description : "Unique stream identifier"
+        tests : 
+          - unique
+          - not_null
+
+      - name : streamer_id
+        description : "user identifier"
+        tests : 
+          - not_null
+
+      - name : started_at
+        description : "hour started stream from the streamer"
+        tests : 
+          - not_null
+
+      - name : language
+        description : "stream language" 
+
+  - name: silver_streams_twitch_observations
+    description : "live stream information snapshot"
+    columns :
+
+      - name : stream_id
+        description : "Unique stream identifier"
+        tests : 
+          - not_null
+
+      - name : streamer_id
+        description : "user identifier"
+
+      - name : collected_at
+        description : "hour of the snapshot stream observation"
+        tests : 
+          - not_null
+
+      - name : viewer_count
+        description : "number of viewver for the snapshots"
+      
+      - name : game_id
+        description : "game id information"
+      
+  - name: silver_games_twitch
+    description : "game informations from twitch"
+    columns :
+
+    - name : game_id
+      description : "unique id of game played"
+      test : 
+        - unique
+        - not null
+        
+    - name : game_name
+      description : "name of game played"
+
