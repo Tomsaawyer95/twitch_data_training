@@ -20,7 +20,7 @@ class TwitchStreamsExtractor:
             all_streams.extend(streams)
             
             elapsed = time.perf_counter() - start
-            print(f"{game["id"]}: intervale {i}, temps ecoulé {elapsed}")
+            #print(f"{game["id"]}: intervale {i}, temps ecoulé {elapsed}")
         return {
             "collected_at": collected_at,
             "source": "twitch_streams",

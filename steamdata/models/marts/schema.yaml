@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: mart_streamers_informations
+    description: >
+      List of streamers who appeared at least once in the Twitch data,
+      deduplicated by streamer identifier.
+
+    columns:
+      - name: streamer_id
+        description: Unique identifier of the streamer
+        tests:
+          - unique
+          - not_null
+
+      - name: user_login
+        description: Login (username) of the streamer
+
+      - name: user_name
+        description: Display name of the streamer
+
+  - name: mart_streams_activities_snapshot
+    description: >
+      Analytical mart containing Twitch audience metrics per observation timestamp,
+      including total viewers, top-ranked streamers, and top-ranked games.
+
+    columns:
+      - name: time
+        description: Timestamp when the data snapshot was collected
+        tests:
+          - not_null
+
+      - name: total_viewers
+        description: Total number of viewers across all streams at a given timestamp
+        tests:
+          - not_null
+
+      - name: top_streamer_id
+        description: Identifier of a top-ranked streamer for the given timestamp
+
+      - name: top_streamer_viewers
+        description: Number of viewers for the top-ranked streamer
+
+      - name: rank_streamer
+        description: Rank of the streamer by viewer count for the given timestamp
+
+      - name: most_valuable_game_id
+        description: Identifier of a top-ranked game for the given timestamp
+
+      - name: most_valuable_game_name
+        description: Name of the top-ranked game for the given timestamp
+
+      - name: top_game_viewers
+        description: Total number of viewers for the top-ranked game
+
+      - name: rank_game
+        description: Rank of the game by total viewers for the given timestamp

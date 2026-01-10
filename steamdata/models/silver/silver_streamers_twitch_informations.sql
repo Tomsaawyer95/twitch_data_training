@@ -1,6 +1,6 @@
-select distinct
-    user_id as streamer_id,
-    user_login,
-    user_name,
-    game_id
-from {{  source('bronze', 'twitch_streams') }}
+SELECT
+    user_id AS streamer_id,
+    ANY_VALUE(user_login) AS user_login,
+    ANY_VALUE(user_name) AS user_name
+FROM {{ source('bronze', 'twitch_streams') }}
+GROUP BY user_id

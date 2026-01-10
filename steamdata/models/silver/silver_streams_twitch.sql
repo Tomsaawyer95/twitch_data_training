@@ -1,6 +1,6 @@
-select distinct
+SELECT 
     stream_id,
-    user_id as streamer_id,
-    started_at,
-    language
-from {{  source('bronze', 'twitch_streams') }}
+    ANY_VALUE(user_id) AS streamer_id,
+    MIN(TRY_CAST(started_at AS DATE)) AS started_at
+FROM {{ source('bronze', 'twitch_streams') }}
+GROUP BY stream_id

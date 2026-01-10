@@ -4,5 +4,6 @@ secrets.yml
 config/local.yml
 *.duckdb
 
+venvLinux/
 venv/
 __pycache__/
